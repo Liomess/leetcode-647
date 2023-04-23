@@ -1,0 +1,18 @@
+class Solution:
+    def countSubstrings(self, s: str) -> int:
+        n=len(s)
+        dp=[[False for i in range(n)]for j in range(n)]
+        count=0
+        for i in range(n):
+            dp[i][i]=True
+            count+=1
+        for i in range(n-1):
+            if s[i]==s[i+1]:
+                dp[i][i+1]=True
+                count+=1
+        for diff in range(2,n):
+            for i in range(0,n-diff):
+                if s[i]==s[i+diff] and dp[i+1][i+diff-1]==True:
+                    dp[i][i+diff]=True
+                    count+=1
+        return count
